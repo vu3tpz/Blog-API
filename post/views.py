@@ -3,9 +3,12 @@ from .models import Post
 from .serializer import PostSerializer
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class PostView(APIView):
+
+    permission_classes = [IsAuthenticated, ]
 
     def get(self, request):
         post = Post.objects.all()
@@ -16,11 +19,13 @@ class PostView(APIView):
         data = request.data
         serializer = PostSerializer(data=data)
         if serializer.is_valid():
-            serializer.save()
+            serializer.save(created_by=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class PostDetailView(APIView):
+
+    permission_classes = [IsAuthenticated, ]
 
     def get_object(self, request, id):
         try:
