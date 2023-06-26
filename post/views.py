@@ -7,7 +7,6 @@ from rest_framework.permissions import IsAuthenticated
 
 # Create your views here.
 class PostView(APIView):
-
     permission_classes = [IsAuthenticated, ]
 
     def get(self, request):
@@ -16,15 +15,18 @@ class PostView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def post(self, request):
-        data = request.data
+        data = {
+            'title': request.data.get('title'),
+            'description': request.data.get('description'),
+            'created_by': self.request.user.id
+        }
         serializer = PostSerializer(data=data)
         if serializer.is_valid():
-            serializer.save(created_by=request.user)
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class PostDetailView(APIView):
-
     permission_classes = [IsAuthenticated, ]
 
     def get_object(self, request, id):
