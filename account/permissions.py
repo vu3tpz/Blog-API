@@ -1,6 +1,7 @@
 from rest_framework.permissions import BasePermission
 from .models import Role, RolePermission
 
+
 class CustomRolePermission(BasePermission):
     def has_permission(self, request, view):
         # Fetch the role associated with the user

@@ -8,14 +8,14 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 # Create your views here.
 class RegisterView(APIView):
-    http_method_names = ['post']
+    http_method_names = ["post"]
 
     def post(self, *args, **kwargs):
         serializer = UserSerializer(data=self.request.data)
         if serializer.is_valid():
             get_user_model().objects.create_user(**serializer.validated_data)
             return Response(data=serializer.data, status=HTTP_201_CREATED)
-        return Response(status=HTTP_400_BAD_REQUEST, data={'errors': serializer.errors})
+        return Response(status=HTTP_400_BAD_REQUEST, data={"errors": serializer.errors})
 
 
 class EmailTokenObtainPairView(TokenObtainPairView):
