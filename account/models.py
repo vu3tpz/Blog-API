@@ -1,7 +1,9 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
 from django.utils.translation import gettext_lazy as _
+
 from .manager import CustomUserManager
+
 
 # Create your models here.
 class Role(models.Model):
@@ -59,7 +61,9 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=512)
     last_name = models.CharField(max_length=512)
     email = models.EmailField(unique=True)
-    role = models.ForeignKey(RolePermission, on_delete=models.SET_NULL, null=True)
+    role = models.ForeignKey(
+        RolePermission, on_delete=models.SET_NULL, null=True
+    )
     joined_on = models.TimeField(auto_now=True)
 
     objects = CustomUserManager()

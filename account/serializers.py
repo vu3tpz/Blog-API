@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model
 from rest_framework import serializers
-from .models import User, Role, Permission, Method, RolePermission
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+
+from .models import Method, Permission, Role, RolePermission, User
 
 
 class TokenObtainPairSerializer(TokenObtainPairSerializer):
