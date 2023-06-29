@@ -61,9 +61,7 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=512)
     last_name = models.CharField(max_length=512)
     email = models.EmailField(unique=True)
-    role = models.ForeignKey(
-        RolePermission, on_delete=models.SET_NULL, null=True
-    )
+    role = models.ForeignKey(RolePermission, on_delete=models.SET_NULL, null=True)
     joined_on = models.TimeField(auto_now=True)
 
     objects = CustomUserManager()

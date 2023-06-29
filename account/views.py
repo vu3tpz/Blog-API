@@ -17,9 +17,7 @@ class RegisterView(APIView):
         if serializer.is_valid():
             get_user_model().objects.create_user(**serializer.validated_data)
             return Response(data=serializer.data, status=HTTP_201_CREATED)
-        return Response(
-            status=HTTP_400_BAD_REQUEST, data={"errors": serializer.errors}
-        )
+        return Response(status=HTTP_400_BAD_REQUEST, data={"errors": serializer.errors})
 
 
 class EmailTokenObtainPairView(TokenObtainPairView):
