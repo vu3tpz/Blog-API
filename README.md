@@ -6,7 +6,9 @@ Simple Blog API that have similar functionality like Instagram
 
 -> [**Django FrameWork**](https://www.djangoproject.com/) | [**Django Rest FrameWork**](https://www.django-rest-framework.org/)
 
--> [**SQLite**](https://www.sqlite.org/) | [**Pre-Commit**](https://pre-commit.com/)
+-> [**SQLite**](https://www.sqlite.org/) 
+
+-> [**Pre-Commit**](https://pre-commit.com/)
 
 # How to run Locally 🖥️
 
