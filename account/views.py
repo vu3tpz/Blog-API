@@ -12,6 +12,7 @@ from .serializers import (
     MethodSerializer,
 )
 from .models import Role, Permission, Method
+from common.permissions import CustomRolePermission
 
 
 # Create your views here.
@@ -37,6 +38,7 @@ class RoleAPIView(CommonCreateListAPIView):
     APIView used to `create` and `list` Role
     """
 
+    permission_classes = [CustomRolePermission]
     serializer_class = RoleSerializer
     model_class = Role
 
