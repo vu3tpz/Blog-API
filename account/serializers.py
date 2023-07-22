@@ -3,6 +3,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from .models import Method, Permission, Role, User
+from common.validator import validate_method_name
 
 
 class TokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -14,9 +15,11 @@ class MethodSerializer(serializers.ModelSerializer):
     Serializer for `Method` model
     """
 
+    name = serializers.CharField(validators=[validate_method_name])
+
     class Meta:
         model = Method
-        fields = ("id", "name")
+        fields = ("id", "name", "created_by", "created_on", "modified_on")
 
 
 class PermissionSerializer(serializers.ModelSerializer):
@@ -26,7 +29,7 @@ class PermissionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Permission
-        fields = ("id", "name", "description", "method")
+        fields = ("id", "name", "description", "method", "created_by", "created_on", "modified_on")
 
 
 class RoleSerializer(serializers.ModelSerializer):
@@ -42,7 +45,15 @@ class RoleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Role
-        fields = ("id", "name", "description", "permission")
+        fields = (
+            "id",
+            "name",
+            "description",
+            "permission",
+            "created_by",
+            "created_on",
+            "modified_on",
+        )
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)

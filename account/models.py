@@ -1,12 +1,13 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from common.model import BaseModel
 
 from .manager import CustomUserManager
 
 
 # Create your models here.
-class Method(models.Model):
+class Method(BaseModel):
     """
     Model holds Methods like `GET`, `POST`, etc..
     """
@@ -17,7 +18,7 @@ class Method(models.Model):
         return self.name
 
 
-class Permission(models.Model):
+class Permission(BaseModel):
     """
     Model holds Permissions like `Manage User`, `Manage Roles`, etc..
     """
@@ -30,7 +31,7 @@ class Permission(models.Model):
         return self.name
 
 
-class Role(models.Model):
+class Role(BaseModel):
     """
     Model holds Roles like `Admin`, `User`, etc..
     """
@@ -53,7 +54,7 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=512)
     last_name = models.CharField(max_length=512)
     email = models.EmailField(unique=True)
-    role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True)
+    user_role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True)
     joined_on = models.TimeField(auto_now=True)
 
     objects = CustomUserManager()

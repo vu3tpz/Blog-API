@@ -6,7 +6,7 @@ Simple Blog API that have similar functionality like Instagram
 
 -> [**Django FrameWork**](https://www.djangoproject.com/) | [**Django Rest FrameWork**](https://www.django-rest-framework.org/)
 
--> [**SQLite**](https://www.sqlite.org/) 
+-> [**SQLite**](https://www.sqlite.org/)
 
 -> [**Pre-Commit**](https://pre-commit.com/)
 
@@ -43,7 +43,7 @@ source virtualenv_name/bin/activate
 ```
 
 
-Clone the GitHub project in your local directory with command `git clone https://github.com/vu3tpz/Blog-API` or you can just download the code and unzip it. 
+Clone the GitHub project in your local directory with command `git clone https://github.com/vu3tpz/Blog-API` or you can just download the code and unzip it.
 
 
 ```

@@ -1,9 +1,9 @@
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_200_OK
+from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
-from common.view import CommonCreateListAPIView
+from common.view import CommonCreateListAPIView, CommonDetailAPIView
 from .serializers import (
     TokenObtainPairSerializer,
     UserSerializer,
@@ -41,6 +41,15 @@ class RoleAPIView(CommonCreateListAPIView):
     model_class = Role
 
 
+class RoleDetailAPIView(CommonDetailAPIView):
+    """
+    APIView used to get the `detail` view, `Update` and `Delete` of particular data
+    """
+
+    serializer_class = RoleSerializer
+    model_class = Role
+
+
 class PermissionAPIView(CommonCreateListAPIView):
     """
     APIView used to `create` and `list` Permission
@@ -50,9 +59,27 @@ class PermissionAPIView(CommonCreateListAPIView):
     model_class = Permission
 
 
+class PermissionDetailAPIView(CommonDetailAPIView):
+    """
+    APIView used to get the `detail` view, `Update` and `Delete` of particular data
+    """
+
+    serializer_class = PermissionSerializer
+    model_class = Permission
+
+
 class MethodAPIView(CommonCreateListAPIView):
     """
     APIView used to `create` and `list` Method
+    """
+
+    serializer_class = MethodSerializer
+    model_class = Method
+
+
+class MethodDetailAPIView(CommonDetailAPIView):
+    """
+    APIView used to get the `detail` view, `Update` and `Delete` of particular data
     """
 
     serializer_class = MethodSerializer
