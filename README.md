@@ -31,10 +31,17 @@ virtualenv virtualenv_name
 
 4. Activate the environment in cmd.
 
-
+**For Windows**
 ```
 virtualenv_name\scripts\activate
 ```
+
+
+**For Ubuntu**
+```
+source virtualenv_name/bin/activate
+```
+
 
 Clone the GitHub project in your local directory with command `git clone https://github.com/vu3tpz/Blog-API` or you can just download the code and unzip it. 
 
