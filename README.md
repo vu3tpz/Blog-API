@@ -4,7 +4,7 @@ Simple Blog API that have similar functionality like Instagram
 
 # Build with ⚒️
 
--> [**Django FrameWork**](https://www.djangoproject.com/) | [**Django Rest FrameWork**](https://www.django-rest-framework.org/)
+-> [**Django Framework**](https://www.djangoproject.com/) | [**Django Rest Framework**](https://www.django-rest-framework.org/)
 
 -> [**SQLite**](https://www.sqlite.org/)
 
