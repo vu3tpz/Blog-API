@@ -1,6 +1,6 @@
 # Blog-API
 
-Simple Blog API that have similar functionality like Instagram
+Simple Blog API that have similar functionality like Instagram with Best Partice in DRF and a feasible solution
 
 # Build with ⚒️
 
