@@ -8,7 +8,7 @@ from apps.common.models import BaseModel
 class User(AbstractUser, BaseModel):
     """
     This model holds the `Basic Details` for authentication.
-    TODO: Need to upade User Model to store only deatils for basic details for `Authentication` like `Username`, `Email` and `Password`.
+    TODO: Need to update User Model to store only details for basic details for `Authentication` like `Email` and `Password`.
     """
 
     username = None
