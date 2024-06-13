@@ -178,6 +178,30 @@ class AppModelCUDAPIViewSet(
         return self.send_response(data=self.get_serializer(instance=self.get_object()).get_meta_for_update())
 
 
+class AppModelCreateAPIViewSet(
+    AppViewMixin,
+    CreateModelMixin,
+    AppGenericViewSet,
+):
+    """
+    Urls Allowed:
+        > POST: {endpoint}/
+            >> Get data from front-end and creates an object.
+        > GET: {endpoint}/meta/
+            >> Returns metadata for the front-end for object creation.
+    """
+
+    @action(
+        methods=["GET"],
+        url_path="meta",
+        detail=False,
+    )
+    def get_meta_for_create(self, *args, **kwargs):
+        """Returns the meta details for create from serializer."""
+
+        return self.send_response(data=self.get_serializer().get_meta_for_create())
+
+
 class AbstractLookUpFieldMixin:
     """
     This class provides config for which field to look in the model as well as
