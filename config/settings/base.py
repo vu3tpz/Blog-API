@@ -61,6 +61,19 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+# Database
+# ------------------------------------------------------------------------------
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env.str("DATABASE_DB", default=""),
+        "USER": env.str("DATABASE_USER", default=""),
+        "PASSWORD": env.str("DATABASE_PASSWORD", default=""),
+        "HOST": env.str("DATABASE_HOST", default=""),
+        "PORT": env.str("DATABASE_PORT", default=""),
+    }
+}
+
 # Urls
 # ------------------------------------------------------------------------------
 ROOT_URLCONF = "config.urls"

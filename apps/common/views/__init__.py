@@ -1,1 +1,2 @@
-from apps.common.views import AppAPIView, AppCreateAPIView, AppViewMixin, NonAuthenticatedAPIMixin
+from .base import AppAPIView, AppCreateAPIView, AppViewMixin, NonAuthenticatedAPIMixin
+from .generic import AppModelCreateAPIViewSet

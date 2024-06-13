@@ -1,6 +1,6 @@
-from .base import (
+from .config import (
     COMMON_BLANK_AND_NULLABLE_FIELD_CONFIG,
     COMMON_CHAR_FIELD_MAX_LENGTH,
     COMMON_NULLABLE_FIELD_CONFIG,
-    BaseModel,
 )
+from .base import BaseModel
