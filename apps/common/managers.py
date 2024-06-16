@@ -1,6 +1,7 @@
 from django.contrib.auth.models import BaseUserManager
 from django.core.exceptions import MultipleObjectsReturned, ObjectDoesNotExist, ValidationError
 from django.db.models import QuerySet
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
@@ -74,6 +75,15 @@ class BaseObjectManagerQuerySet(QuerySet):
 
     Usage on the model class
         objects = BaseObjectManagerQuerySet.as_manager()
+
+    Available methods -
+        get_or_none
+        active,
+        inactive,
+        alive,
+        dead,
+        delete,
+        hard_delete
     """
 
     def get_or_none(self, *args, **kwargs):
@@ -93,3 +103,51 @@ class BaseObjectManagerQuerySet(QuerySet):
             ValidationError,  # invalid UUID
         ):
             return None
+
+    def delete(self):
+        """
+        Soft-delete the queryset by updating `is_deleted` and `is_active`
+        fields to True and False respectively.
+        """
+
+        return super().update(is_deleted=True, is_active=False, deleted_at=timezone.now())
+
+    def hard_delete(self):
+        """
+        Hard-delete the queryset by calling the default `delete` method
+        of the queryset.
+        """
+
+        return super().delete()
+
+    def alive(self):
+        """
+        Return a queryset of only the non-soft-deleted objects, which have
+        `is_deleted` set to False.
+        """
+
+        return self.filter(is_deleted=False)
+
+    def dead(self):
+        """
+        Return a queryset of only the soft-deleted objects, which have
+        `is_deleted` set to True.
+        """
+
+        return self.filter(is_deleted=True)
+
+    def active(self):
+        """
+        Overridden to set archivable fields. Return a queryset of only the active objects, which have `is_active`
+        set to True and `is_deleted` set to False.
+        """
+
+        return self.filter(is_active=True, is_deleted=False)
+
+    def inactive(self):
+        """
+        Overridden to set archivable fields. Return a queryset of only the inactive objects, which have `is_active`
+        set to False and `is_deleted` set to False.
+        """
+
+        return self.filter(is_active=False, is_deleted=False)
