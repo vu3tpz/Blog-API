@@ -1,7 +1,6 @@
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 
-from apps.access.models import User
 from apps.access.serializers import LoginSerializer, SignUpSerializer
 from apps.common.views import AppAPIView, NonAuthenticatedAPIMixin
 
@@ -57,3 +56,14 @@ class RefreshAuthTokenAPIView(AppAPIView):
                     token=Token.objects.get(user=user),
                 ),
             )
+
+
+class LogoutAPIView(AppAPIView):
+    """Invalidate a token and logout user."""
+
+    def post(self, *args, **kwargs):
+        user = self.get_authenticated_user()
+        if user:
+            Token.objects.filter(user=user).delete()
+            return self.send_response()
+        return self.send_error_response()
