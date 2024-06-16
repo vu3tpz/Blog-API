@@ -11,5 +11,5 @@ class SignUpAPIViewSet(NonAuthenticatedAPIMixin, AppAPIView):
         serializer = SignUpSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return self.send_response(status=status.HTTP_201_CREATED)
+            return self.send_response(status_code=status.HTTP_201_CREATED)
         return self.send_error_response(serializer.errors)
