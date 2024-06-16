@@ -48,14 +48,13 @@ class AppViewMixin:
         return self.send_response(data=data, status_code=status.HTTP_400_BAD_REQUEST)
 
     @staticmethod
-    def send_response(data=None, status_code=status.HTTP_200_OK, action_code="DO_NOTHING", **other_response_data):
+    def send_response(data=None, status_code=status.HTTP_200_OK, **other_response_data):
         """Custom function to send the centralized response."""
 
         return Response(
             data={
                 "data": data,
                 "status": "success" if is_success(status_code) else "error",
-                "action_code": action_code,  # make the FE do things based on this
                 **other_response_data,
             },
             status=status_code,
