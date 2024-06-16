@@ -55,6 +55,7 @@ class AppViewMixin:
             data={
                 "data": data,
                 "status": "success" if is_success(status_code) else "error",
+                "status_code": status_code,
                 "action_code": action_code,  # make the FE do things based on this
                 **other_response_data,
             },

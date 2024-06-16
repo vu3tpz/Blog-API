@@ -1,6 +1,8 @@
+from django.urls import path
+
 from apps.access.views import SignUpAPIViewSet
 from apps.common.router import router
 
-router.register("sign-up", SignUpAPIViewSet)
-
-urlpatterns = [] + router.urls
+urlpatterns = [
+    path("sign-up/", SignUpAPIViewSet.as_view(), name="sign-up"),
+] + router.urls
