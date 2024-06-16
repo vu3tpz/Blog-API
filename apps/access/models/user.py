@@ -24,16 +24,16 @@ class User(AbstractUser, BaseModel):
     username = None
     objects = UserManager()
 
-    # Char Fields
+    # Char fields
     first_name = models.CharField(max_length=COMMON_CHAR_FIELD_MAX_LENGTH)
     last_name = models.CharField(max_length=COMMON_CHAR_FIELD_MAX_LENGTH)
     username = models.CharField(unique=True)
     password = models.CharField(max_length=COMMON_CHAR_FIELD_MAX_LENGTH)
 
-    # Email Field
+    # Email field
     email = models.EmailField(unique=True)
 
-    # Choice Field
+    # Choice field
     type = models.CharField(
         max_length=COMMON_CHAR_FIELD_MAX_LENGTH, choices=UserTypeChoices.choices, default=UserTypeChoices.user
     )

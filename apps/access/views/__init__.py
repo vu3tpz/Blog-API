@@ -1,2 +1,2 @@
 # flake8: noqa
-from .authentication import SignUpAPIView, LoginAPIView
+from .authentication import SignUpAPIView, LoginAPIView, RefreshAuthTokenAPIView

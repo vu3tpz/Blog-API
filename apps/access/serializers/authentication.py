@@ -64,6 +64,8 @@ class SignUpSerializer(AppWriteOnlyModelSerializer):
 
 
 class LoginSerializer(serializers.Serializer):
+    """Serializer to handle login."""
+
     email_or_username = serializers.CharField()
     password = serializers.CharField(write_only=True)
     type = serializers.CharField()

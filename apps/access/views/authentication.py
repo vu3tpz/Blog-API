@@ -43,3 +43,17 @@ class LoginAPIView(NonAuthenticatedAPIMixin, AppAPIView):
                 data=logged_in_response(user, token),
             )
         return self.send_error_response("User not found")
+
+
+class RefreshAuthTokenAPIView(AppAPIView):
+    """Refresh APIView for the services to authenticate tokens."""
+
+    def get(self, *args, **kwargs):
+        user = self.get_authenticated_user()
+        if user:
+            return self.send_response(
+                data=logged_in_response(
+                    user=user,
+                    token=Token.objects.get(user=user),
+                ),
+            )
