@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from apps.access.config import UserTypeChoices
 from apps.common.managers import UserManager
 from apps.common.models import COMMON_CHAR_FIELD_MAX_LENGTH, BaseModel
 
@@ -17,16 +18,25 @@ class User(AbstractUser, BaseModel):
         Boolean     - is_active, is_deleted
         Char        - first_name, last_name, username, password
         Email       - email
+        Choice      - type
     """
 
     username = None
     objects = UserManager()
 
+    # Char Fields
     first_name = models.CharField(max_length=COMMON_CHAR_FIELD_MAX_LENGTH)
     last_name = models.CharField(max_length=COMMON_CHAR_FIELD_MAX_LENGTH)
     username = models.CharField(unique=True)
-    email = models.EmailField(unique=True)
     password = models.CharField(max_length=COMMON_CHAR_FIELD_MAX_LENGTH)
+
+    # Email Field
+    email = models.EmailField(unique=True)
+
+    # Choice Field
+    type = models.CharField(
+        max_length=COMMON_CHAR_FIELD_MAX_LENGTH, choices=UserTypeChoices.choices, default=UserTypeChoices.user
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
