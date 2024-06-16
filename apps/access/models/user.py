@@ -15,6 +15,7 @@ class User(AbstractUser, BaseModel):
 
     first_name = models.CharField(max_length=COMMON_CHAR_FIELD_MAX_LENGTH)
     last_name = models.CharField(max_length=COMMON_CHAR_FIELD_MAX_LENGTH)
+    username = models.CharField(unique=True)
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=COMMON_CHAR_FIELD_MAX_LENGTH)
 
