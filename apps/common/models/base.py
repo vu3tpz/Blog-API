@@ -22,15 +22,15 @@ class BaseModel(models.Model):
         Boolean     - is_active, is_deleted
     """
 
-    # unique id field
+    # UUID
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
 
-    # time tracking
+    # DateTime fields
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     deleted = models.DateTimeField(**COMMON_BLANK_AND_NULLABLE_FIELD_CONFIG)
 
-    # by whom
+    # ForeignKey fields
     created_by = models.ForeignKey(
         to=settings.AUTH_USER_MODEL,
         related_name="created_%(class)s",

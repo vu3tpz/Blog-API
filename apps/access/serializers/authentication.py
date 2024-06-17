@@ -37,6 +37,9 @@ class SignUpSerializer(AppWriteOnlyModelSerializer):
         if len(username) < 6:
             raise serializers.ValidationError("Username must be at least 6 characters long.")
 
+        if len(username) > 12:
+            raise serializers.ValidationError("Username must be less than 12 characters long.")
+
         return username
 
     def validate(self, data):
@@ -58,3 +61,30 @@ class SignUpSerializer(AppWriteOnlyModelSerializer):
             last_name=validated_data.get("last_name", ""),
         )
         return user
+
+
+class LoginSerializer(serializers.Serializer):
+    """Serializer to handle login."""
+
+    email_or_username = serializers.CharField()
+    password = serializers.CharField(write_only=True)
+    type = serializers.CharField()
+
+    def validate(self, data):
+        email_or_username = data.get("email_or_username")
+        password = data.get("password")
+        user_type = data.get("type")
+
+        if not email_or_username or not password or not user_type:
+            raise serializers.ValidationError("All fields are required.")
+
+        user = (
+            User.objects.filter(email=email_or_username).first()
+            or User.objects.filter(username=email_or_username).first()
+        )
+
+        if not user or not user.check_password(password) or user.type != user_type:
+            raise serializers.ValidationError("Please check your login credentials.")
+
+        data["user"] = user
+        return data
