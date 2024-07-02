@@ -1,60 +1,42 @@
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 
-from apps.access.serializers import LoginSerializer, SignUpSerializer
+from apps.access.serializers import LoginResponseSerializer, LoginSerializer, SignUpSerializer
 from apps.common.views import AppAPIView, NonAuthenticatedAPIMixin
-
-
-def logged_in_response(user, token):
-    return {
-        "user": {
-            "id": user.id,
-            "uuid": str(user.uuid),
-            "email": user.email,
-            "first_name": user.first_name,
-            "last_name": user.last_name,
-            "user_type": user.type,
-        },
-        "token": token.key,
-    }
 
 
 class SignUpAPIView(NonAuthenticatedAPIMixin, AppAPIView):
     """Used to create user in the application if they not exist."""
 
+    serializer_class = SignUpSerializer
+
     def post(self, request):
-        serializer = SignUpSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return self.send_response(status_code=status.HTTP_201_CREATED)
-        return self.send_error_response(serializer.errors)
+        serializer = self.get_valid_serializer()
+        serializer.save()
+        return self.send_response(status_code=status.HTTP_201_CREATED, data="User signed up successfully.")
 
 
 class LoginAPIView(NonAuthenticatedAPIMixin, AppAPIView):
     """Used to login user into the application."""
 
+    serializer_class = LoginSerializer
+
     def post(self, request):
-        serializer = LoginSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.validated_data["user"]
-            token, _ = Token.objects.get_or_create(user=user)
-            return self.send_response(
-                data=logged_in_response(user, token),
-            )
-        return self.send_error_response("User not found")
+        serializer = self.get_valid_serializer()
+        user = serializer.validated_data["user"]
+        return self.send_response(
+            data=LoginResponseSerializer(user).data,
+        )
 
 
 class RefreshAuthTokenAPIView(AppAPIView):
     """Refresh APIView for the services to authenticate tokens."""
 
     def get(self, *args, **kwargs):
-        user = self.get_authenticated_user()
+        user = self.get_user()
         if user:
             return self.send_response(
-                data=logged_in_response(
-                    user=user,
-                    token=Token.objects.get(user=user),
-                ),
+                data=LoginResponseSerializer(user).data,
             )
 
 
@@ -65,5 +47,5 @@ class LogoutAPIView(AppAPIView):
         user = self.get_authenticated_user()
         if user:
             Token.objects.filter(user=user).delete()
-            return self.send_response()
+            return self.send_response("User logged out.")
         return self.send_error_response()
