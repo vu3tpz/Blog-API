@@ -1,7 +1,25 @@
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
 
 from apps.access.models import User
-from apps.common.serializers import AppWriteOnlyModelSerializer
+from apps.common.serializers import AppReadOnlyModelSerializer, AppWriteOnlyModelSerializer
+
+
+class LoginResponseSerializer(AppReadOnlyModelSerializer):
+    """Serializer for the login response."""
+
+    token = serializers.SerializerMethodField()
+
+    class Meta(AppReadOnlyModelSerializer.Meta):
+        model = User
+        fields = ["id", "uuid", "email", "first_name", "last_name", "type", "token"]
+
+    def get_token(self, request):
+        """Return the token for the user."""
+
+        user = self.instance
+        token, _ = Token.objects.get_or_create(user=user)
+        return token.key
 
 
 class SignUpSerializer(AppWriteOnlyModelSerializer):
