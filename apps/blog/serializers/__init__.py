@@ -1,2 +1,2 @@
 # flake8: noqa
-from .blog import BlogCUDSerializer
+from .blog import BlogCUDSerializer, BlogListSerializer

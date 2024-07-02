@@ -1,2 +1,2 @@
 # flake8: noqa
-from .blog import BlogCUDAPIViewSet
+from .blog import BlogCUDAPIViewSet, BlogListAPIViewSet

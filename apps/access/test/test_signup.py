@@ -5,8 +5,9 @@ from rest_framework.test import APITestCase
 from apps.access.models import User
 
 
-# Create your tests here.
 class SignUpAPITests(APITestCase):
+    """TestCase for SignUp API."""
+
     def test_signup_valid_data(self):
         """Testcase for successful signup."""
 

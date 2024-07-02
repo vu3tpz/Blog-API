@@ -6,6 +6,8 @@ from apps.access.models import User
 
 
 class LoginAPITests(APITestCase):
+    """TestCase for Login API."""
+
     def setUp(self):
         self.user = User.objects.create_user(email="test@example.com", password="ValidPass1!", type="user")
         self.url = reverse("login")

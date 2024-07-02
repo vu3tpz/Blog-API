@@ -1,5 +1,5 @@
 from apps.blog.models import Blog
-from apps.common.serializers import AppWriteOnlyModelSerializer
+from apps.common.serializers import AppReadOnlyModelSerializer, AppWriteOnlyModelSerializer, SimpleUserSerializer
 
 
 class BlogCUDSerializer(AppWriteOnlyModelSerializer):
@@ -10,3 +10,15 @@ class BlogCUDSerializer(AppWriteOnlyModelSerializer):
     class Meta(AppWriteOnlyModelSerializer.Meta):
         model = Blog
         fields = ["title", "content"]
+
+
+class BlogListSerializer(AppReadOnlyModelSerializer):
+    """
+    Serializer to handle the read operations for the `Blog` model.
+    """
+
+    created_by = SimpleUserSerializer()
+
+    class Meta(AppReadOnlyModelSerializer.Meta):
+        model = Blog
+        fields = ["id", "uuid", "title", "content", "status", "created", "created_by"]
