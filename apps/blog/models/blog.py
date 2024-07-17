@@ -15,7 +15,7 @@ class Blog(BaseModel):
         Datetime    - created, modified, deleted
         Boolean     - is_active, is_deleted
         Char        - title
-        Text        - content
+        Text        - content, description
         Choice      - status
     """
 
@@ -23,6 +23,7 @@ class Blog(BaseModel):
     title = models.CharField(max_length=COMMON_CHAR_FIELD_MAX_LENGTH)
 
     # Text field
+    description = models.TextField()
     content = models.TextField()
 
     # Choice field

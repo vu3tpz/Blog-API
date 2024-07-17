@@ -9,7 +9,7 @@ class BlogCUDSerializer(AppWriteOnlyModelSerializer):
 
     class Meta(AppWriteOnlyModelSerializer.Meta):
         model = Blog
-        fields = ["title", "content"]
+        fields = ["title", "content", "description"]
 
 
 class BlogListSerializer(AppReadOnlyModelSerializer):
@@ -21,4 +21,4 @@ class BlogListSerializer(AppReadOnlyModelSerializer):
 
     class Meta(AppReadOnlyModelSerializer.Meta):
         model = Blog
-        fields = ["id", "uuid", "title", "content", "status", "created", "created_by"]
+        fields = ["id", "uuid", "title", "content", "description", "status", "created", "created_by"]
