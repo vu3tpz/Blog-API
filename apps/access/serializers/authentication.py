@@ -96,10 +96,7 @@ class LoginSerializer(serializers.Serializer):
         if not email_or_username or not password or not user_type:
             raise serializers.ValidationError("All fields are required.")
 
-        user = (
-            User.objects.filter(email=email_or_username).first()
-            or User.objects.filter(username=email_or_username).first()
-        )
+        user = User.objects.get_or_none(email=email_or_username) or User.objects.get_or_none(username=email_or_username)
 
         if not user or not user.check_password(password) or user.type != user_type:
             raise serializers.ValidationError("Please check your login credentials.")
