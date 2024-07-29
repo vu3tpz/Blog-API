@@ -45,6 +45,9 @@ THIRD_PARTY_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "django_celery_beat",
+    "viewflow",
+    # Swagger
+    "drf_yasg",
 ]
 
 CUSTOM_APPS = [
@@ -180,3 +183,8 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 APP_DATE_FORMAT = "%Y-%m-%d"
 APP_TIME_FORMAT = "%H:%M:%S"
 APP_DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S"
+
+
+# Swagger Configuration
+# -------------------------------------------------------------------------------
+SWAGGER_SETTINGS = {"SECURITY_DEFINITIONS": {"Basic": {"type": "basic"}}}
