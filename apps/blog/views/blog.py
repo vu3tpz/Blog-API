@@ -1,10 +1,7 @@
-from rest_framework.decorators import action
-
 from apps.access.config import UserTypeChoices
-from apps.blog.config import BlogStatusChoices
 from apps.blog.models import Blog
 from apps.blog.serializers import BlogCUDSerializer, BlogListSerializer
-from apps.common.views import AppAPIView, AppModelCUDAPIViewSet, AppModelListAPIViewSet
+from apps.common.views import AppModelCUDAPIViewSet, AppModelListAPIViewSet
 
 
 class BlogCUDAPIViewSet(AppModelCUDAPIViewSet):
