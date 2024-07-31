@@ -99,7 +99,7 @@ class LoginSerializer(serializers.Serializer):
         user = User.objects.get_or_none(email=email_or_username) or User.objects.get_or_none(username=email_or_username)
 
         if not user or not user.check_password(password) or user.type != user_type:
-            raise serializers.ValidationError("Please check your login credentials.")
+            raise serializers.ValidationError({"password": ["Please check your login credentials."]})
 
         data["user"] = user
         return data
