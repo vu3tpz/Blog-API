@@ -1,4 +1,4 @@
-FROM python:3.11-slim
+FROM python:3.11.1-slim-bullseye
 
 # Initial update & initial dependencies
 RUN apt-get update && apt-get install -y supervisor gcc g++ python3-dev curl gnupg gunicorn
